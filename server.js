@@ -8,15 +8,6 @@ const { Client } = require("pg");
 let root = process.cwd();
 let isProduction = process.env.NODE_ENV === "production";
 
-const client = new Client({
-	user: process.env.DB_USER || "postgres",
-	host: process.env.DB_HOST || "localhost",
-	database: process.env.DB_DATABASE || "postgres",
-	password: process.env.DB_PASSWORD || "postgres",
-	port: process.env.DB_PORT || 5432,
-});
-client.connect();
-
 function resolve(p) {
 	return path.resolve(__dirname, p);
 }
@@ -40,6 +31,8 @@ async function createServer() {
 		app.use(express.static(resolve("dist/client")));
 	}
 
+	app.use(express.json());
+	app.use("/api", require('./api/routes'))
 	
 	app.use("*", async (req, res) => {
 		let url = req.originalUrl;

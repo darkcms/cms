@@ -40,6 +40,9 @@ Start the development server
 ## Roadmap
 
 - [ ]  Basic Authentication
+  - [ ] User login
+  - [ ] API tokens
+  - [ ] Refresh tokens
 - [ ]  Administration panel
 - [ ]  Basic template editing
 - [ ]  Basic style configuration
