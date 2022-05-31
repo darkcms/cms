@@ -39,8 +39,8 @@ Start the development server
 
 ## Roadmap
 
-- [ x ]  Basic Authentication
-  - [ x ] User login
+- [x]  Basic Authentication
+  - [x] User login
   - [ ] API tokens
   - [ ] Refresh tokens
   - [ ] Admin Role
