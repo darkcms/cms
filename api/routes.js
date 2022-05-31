@@ -1,20 +1,21 @@
 const router = require('express').Router();
-const { client } = require('./db');
+const { client } = require('./framework/db');
 const bcrypt = require("bcrypt");
+const knex = require('knex');
 
 router.post('/auth/login', async function (req, res) {
+    const res2 = await client.from("users").where({'email': "admin@mail.com"});
+    if (res2.length === 0) res.json({ "error": "email" });
+    const user = res2[0];
 
-    const res2 = await client.query('SELECT * FROM users WHERE email = $1::text', [req.body.email]);
-    if (res2.rowCount === 0) res.json({ "error": "email" });
-    const user = res2.rows[0];
-
-    if (!bcrypt.compareSync(req.body.password, user.password)) res.json({ "error": "password" });
-    else res.json(user);
+    //if (!bcrypt.compareSync(req.body.password, user.password)) res.json({ "error": "password" });
+    //else res.json(user);
+    res.json(user);
 });
 
-// api/products/:id
-router.get('/:id', function (req, res) {
-    res.json({ id: req.params.id });
+router.get('/pages', async function (req, res) {
+    const res2 = await client.from("pages");
+    return res.json(res2);
 });
 
 module.exports = router;

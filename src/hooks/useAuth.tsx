@@ -35,8 +35,9 @@ function useProvideAuth() {
             })
         });
         const js = await resp.json();
-        
         setUser(true);
+
+        return js;
     };
 
     const logout = () => {

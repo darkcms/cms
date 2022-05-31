@@ -3,7 +3,7 @@ require("dotenv").config();
 let path = require("path");
 let fsp = require("fs/promises");
 let express = require("express");
-const { Client } = require("pg");
+var bodyParser = require('body-parser')
 
 let root = process.cwd();
 let isProduction = process.env.NODE_ENV === "production";
@@ -21,7 +21,6 @@ async function createServer() {
 
 	if (!isProduction) {
 		vite = await require("vite").createServer({
-			root,
 			server: { middlewareMode: "ssr" },
 		});
 
@@ -32,6 +31,7 @@ async function createServer() {
 	}
 
 	app.use(express.json());
+	app.use(bodyParser.json())
 	app.use("/api", require('./api/routes'))
 	
 	app.use("*", async (req, res) => {
